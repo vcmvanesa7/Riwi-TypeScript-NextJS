@@ -9,7 +9,7 @@ I'll be uploading my progress, challenges, and practical projects.
 - ⚛️ [React](https://react.dev/) → Core library for interfaces
 - ⌨️ [TypeScript](https://www.typescriptlang.org/) → Static typing and increased security
 - 🌐 [Next.js](https://nextjs.org/) → React framework with SSR, routes, and optimization
-- 🎨 (Optional) [TailwindCSS](https://tailwindcss.com/) → Fast and modern styles
+- 🎨 ([TailwindCSS](https://tailwindcss.com/) → Fast and modern styles
 
 ---
 ✨ Project status
