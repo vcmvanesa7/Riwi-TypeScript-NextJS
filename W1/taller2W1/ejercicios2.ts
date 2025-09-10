@@ -28,33 +28,23 @@ fizzBuzz(50);
 //-------------------------------------------------------------------
 // const → declara una constante que no puede ser reasignada
 
-const names: string[] = ["Ana", "Luis", "Carlos", "María"];
+const names: string[] = ["Vanesa", "Esteban", "Miguel", "Fabian"];
 function greetNames(names: string[]): void { 
     names.forEach((name: string) => {
-        console.log(`Hola ${name}, bienvenido/a al sistema.`);
+        console.log(`Hola ${name}, bienvenido/a al sistema :D.`);
     });
 }
-
 // Llamada a la función greetNames con el arreglo names
 greetNames(names);
 
 
 
-
-
-
-
-
-
-
 // EJERCICIO 3: FILTRADO DE ESTUDIANTES
 //-------------------------------------------------------------------
-interface Student {
+interface Student { 
     name: string;
     grade: number;
 }
-
-// const students: Student[] → declara un arreglo de objetos tipo Student
 const students: Student[] = [
     { name: "Ana", grade: 85 },
     { name: "Luis", grade: 45 },
@@ -62,14 +52,10 @@ const students: Student[] = [
     { name: "Carlos", grade: 50 }
 ];
 
-// function getApprovedStudents → función que filtra estudiantes aprobados
+// function getApprovedStudents -> función que filtra estudiantes aprobados
 function getApprovedStudents(students: Student[]): Student[] {
-    // students.filter → filtra el arreglo de estudiantes
     return students.filter((student: Student) => student.grade >= 60); 
 }
-// Se obtiene la lista de estudiantes que aprobaron
 const approved = getApprovedStudents(students);
-
-// Se imprime la lista de estudiantes que aprobaron
 console.log("Estudiantes aprobados:", approved);
 
