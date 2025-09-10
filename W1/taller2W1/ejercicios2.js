@@ -13,13 +13,16 @@ function fizzBuzz(limit) {
             console.log("Buzz");
         }
         else {
-            console.log(i);
+            console.log(i); 
         }
     }
 }
 // Llamada a la función fizzBuzz con límite 50
 // fizzBuzz(50) → ejecuta la función con limit = 50
 fizzBuzz(50);
+
+
+
 // EJERCICIO 2: SALUDO CON forEach
 //-------------------------------------------------------------------
 // const → declara una constante que no puede ser reasignada
