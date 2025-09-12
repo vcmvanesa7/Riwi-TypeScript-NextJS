@@ -11,3 +11,6 @@ export default function Document() {
     </Html>
   );
 }
+
+//Sirve para darle buenas practicas de página web
+//Archivo de configuración pero puedo agregar toda la info de mi página web.
