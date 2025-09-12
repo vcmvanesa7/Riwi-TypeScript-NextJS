@@ -1,6 +1,16 @@
 //El archivo que interactúa con el DOM
 
-type values = number;
+interface product {
+  name : string,
+  brand : string,
+  quantity : number
+  price : number
+  currency : "COP" | "USD",
+  isActive : boolean,
+  category : 
+}
+
+
 
 export default function home() {
   let result = 0;
