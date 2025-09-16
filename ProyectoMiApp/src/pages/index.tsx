@@ -1,9 +1,10 @@
 // //El archivo que interactúa con el DOM
 
+import { persona } from "@/helpers/utils";
+import  styles  from "@/pages/home.module.css"
 // import { useState } from "react";
 // import { CircleCheckBig, Ban } from "lucide-react";
 // import Image from "next/image";
-
 
 // //TYPE AND INTERFACES
 // //-------------------
@@ -17,13 +18,11 @@
 //   co2Reduced: number, //kg CO2
 // };
 
-
 // interface Dimensions {
 //   widthCm : number,
 //   heightCm: number,
 //   depthCm?: number,
 // };
-
 
 // interface Product {
 //   id: string,
@@ -60,7 +59,6 @@
 //   totalImpact: Impact,
 //   createdAt: string,
 // };
-
 
 // //CREATE INITIALS DATES
 // //----------------------------
@@ -438,7 +436,6 @@
 // }
 // ];
 
-
 // const users: User[] = [
 //   {
 //     id: "U1",
@@ -547,9 +544,6 @@
 //   )
 // }
 
-
-
-
 // export default function Home() {
 //   return (
 //     <div>
@@ -596,45 +590,65 @@
 //   );
 // }
 
+// //CREATING CLASSES AND ...
+
+// export default function home() {
+//   class Article {
+//     name: string;
+//     color: string;
+//     disponible: boolean;
+
+//     constructor(name: string, color: string, disponible: boolean) {
+//       this.name = name;
+//       this.color = color;
+//       this.disponible = disponible;
+//     }
+
+//     showProduct() {
+//       return `Nombre Producto:  ${this.name}`;
+//     }
+//   }
+
+//   const Article1 = new Article("Hat", "black", true);
+//   console.log(Article1.name, Article1.color, Article1.disponible);
+
+//   class ArticlePoints extends Article {
+//     ecoPoints!: number;
+
+//     constructor(
+//       name: string,
+//       color: string,
+//       disponible: boolean,
+//       ecoPoints: number
+//     ) {
+//       super(name, color, disponible);
+//       this.ecoPoints = ecoPoints;
+//     }
+
+//     showProdctWithPoints ()
+//   }
+// }
 
 
 
 
-
-
-
-//CREATING CLASSES AND ...
-
-export default function home() {
+export default function Home() {
   
-class Article {
-  name: string;
-  color: string;
-  disponible: boolean;
+  return (    
 
-
-constructor (name:string, color:string, disponible:boolean){
-  this.name = name;
-  this.color = color;
-  this.disponible = disponible;
-}
-
-
-showProduct(){
-  return`Nombre Producto:  ${this.name}`
-}
-}
-
-const Article1 = new Article ("Hat", "black", true);
-console.log(Article1.name , Article1.color , Article1.disponible)
-
-
-class ArticlePoints extends Article{
-  ecoPoints: number;
-  
-constructor (name:string, color:string, disponible:boolean, ecoPoints: number)
-  super(name,color,disponible);
-  this.ecoPoints = ecoPoints;
-}
-
+    <div>
+      <h1 className={styles.title}>LISTADO DE USUSARIOS</h1>
+      {persona.map((p,index) => (
+        <div key={index} className={styles.containerDatos} >
+          <h2 className={styles.nameEdad} >{p.nombre} ({p.edad} años)</h2>
+          <p>Color favorito: {p.gustos.color}</p>
+          <p>Comida favorita: {p.gustos.comida}</p>
+          <p>Deporte favorito: {p.gustos.deporte}</p>
+          <p>Y su pasión es: {p.gustos.pasion}</p>
+        </div>
+      )
+    )}
+    </div>
+     
+  );
 }

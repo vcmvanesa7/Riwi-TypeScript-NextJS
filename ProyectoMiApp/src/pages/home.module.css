@@ -1,0 +1,19 @@
+.containerDatos {
+    border-radius: 16px;
+    box-shadow: 0 0px 4px #ffffff;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    text-align: center;
+    margin: 4rem auto;
+}
+
+.nameEdad {
+    color: #5e31ff;
+}
