@@ -1,10 +1,8 @@
-// //El archivo que interactúa con el DOM
 
-import { persona } from "@/helpers/utils";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { usuario } from "@/utils/usuarios";
 import  styles  from "@/pages/home.module.css"
-// import { useState } from "react";
-// import { CircleCheckBig, Ban } from "lucide-react";
-// import Image from "next/image";
 
 // //TYPE AND INTERFACES
 // //-------------------
@@ -630,25 +628,95 @@ import  styles  from "@/pages/home.module.css"
 // }
 
 
-
-
-export default function Home() {
+// export default function Home() {
   
-  return (    
+//   return (    
 
-    <div>
-      <h1 className={styles.title}>LISTADO DE USUSARIOS</h1>
-      {persona.map((p,index) => (
-        <div key={index} className={styles.containerDatos} >
-          <h2 className={styles.nameEdad} >{p.nombre} ({p.edad} años)</h2>
-          <p>Color favorito: {p.gustos.color}</p>
-          <p>Comida favorita: {p.gustos.comida}</p>
-          <p>Deporte favorito: {p.gustos.deporte}</p>
-          <p>Y su pasión es: {p.gustos.pasion}</p>
-        </div>
-      )
-    )}
-    </div>
+//     <div>
+//       <h1 className={styles.title}>LISTADO DE USUARIOS</h1>
+//       {persona.map((p,index) => (
+//         <div key={index} className={styles.containerDatos} >
+//           <h2 className={styles.nameEdad} >{p.nombre} ({p.edad} años)</h2>
+//           <p>Color favorito: {p.gustos.color}</p>
+//           <p>Comida favorita: {p.gustos.comida}</p>
+//           <p>Deporte favorito: {p.gustos.deporte}</p>
+//           <p>Y su pasión es: {p.gustos.pasion}</p>
+//         </div>
+//       )
+//     )}
+//     </div>
      
-  );
-}
+//   );
+// }
+
+const Login = ()=>{
+
+  const router = useRouter();
+  const [user, setUser] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  
+  const handleChangeUser = (e:React.ChangeEvent<HTMLInputElement>) => {setUser(e.target.value); if (error) setError('')}; // limpiar error al escribir
+  const handleChangePass = (e:React.ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value); if (error) setError("")};
+
+  
+  const handleClick = ()=>{
+    if (user === "" || password === ""){
+      setError("Debe ingresar usuario y contraseña")
+      return;
+    }
+
+    const usuarioEncontrado = usuario.find((item)=>item.name === user)
+    
+    if (!usuarioEncontrado){
+      setError("Usuario o contraseña incorrectas")
+      setPassword("")
+      setUser("")
+      return;
+    }
+
+    if (usuarioEncontrado.password === password) {
+        router.push("/dashboard");
+        
+      } else {
+         setError("Usuario o contraseña incorrectas");
+      }
+
+      console.log("Se hizo click")
+      console.log(user);
+      console.log(password);
+    };
+
+
+  return (
+    <div>
+      <div className={styles.title}>Login</div>
+      <div className={styles.container}>
+        <label className={styles.label}>Enter your username</label>
+        <input
+          type="text"
+          value={user}
+          onChange={handleChangeUser}
+          className={styles.input}
+        />
+
+        <label className={styles.label}>Enter your password</label>
+        <input
+          type="password"
+          value={password}
+          onChange={handleChangePass}
+          className={styles.input}
+        />
+
+        <button onClick={handleClick} className={styles.button}>
+          Sign In
+        </button>
+        {error && <p className={styles.error}>{error}</p>}
+
+      </div>
+    </div>
+
+  )
+};
+
+export default Login;

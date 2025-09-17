@@ -1,4 +1,4 @@
-import { Persona } from "../pages/dto";
+import { Persona } from "../dto/personaInterface";
 
 export const persona: Persona[] = [
   {
