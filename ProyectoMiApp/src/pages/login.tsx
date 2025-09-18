@@ -1,89 +1,80 @@
-
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { usuario } from "@/utils/usuarios";
-import styles from "@/pages/home.module.css"
+import styles from "@/pages/home.module.css";
 import Head from "next/head";
-
+import { authenticate } from "@/utils/auth";
 
 
 const Login = () => {
+  const router = useRouter();
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-    const router = useRouter();
-    const [user, setUser] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+  const handleChangeUser = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUser(e.target.value);
+    if (error) setError("");
+  }; // limpiar error al escribir
+  const handleChangePass = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    if (error) setError("");
+  };
 
-    const handleChangeUser = (e: React.ChangeEvent<HTMLInputElement>) => { setUser(e.target.value); if (error) setError('') }; // limpiar error al escribir
-    const handleChangePass = (e: React.ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value); if (error) setError("") };
+  const handleClick = () => {
+    if (!user || !password) {
+      setError("Debe ingresar usuario y contraseña");
+      return;
+    }
 
+    const usuario = authenticate(user, password);
+    if (!usuario) {
+      setError("Usuario o contraseña incorrectas");
+      setPassword("");
+      return;
+    }
 
-    const handleClick = () => {
-        if (user === "" || password === "") {
-            setError("Debe ingresar usuario y contraseña")
-            return;
-        }
+    router.push("/dashboard"); // login exitoso
 
-        const usuarioEncontrado = usuario.find((item) => item.name === user)
+    console.log("Se hizo click");
+    console.log(user);
+    console.log(password);
+  };
 
-        if (!usuarioEncontrado) {
-            setError("Usuario o contraseña incorrectas")
-            setPassword("")
-            setUser("")
-            return;
-        }
+  return (
+    <div>
+      <Head>
+        <title>EcoStyle</title>
+        <meta
+          name="description"
+          content="Inicia sesión en EcoStyle, tu e-commerce ecoamigable."
+        />
+      </Head>
 
-        if (usuarioEncontrado.password === password) {
-            router.push("/dashboard");
+      <div className={styles.title}>Login</div>
+      <div className={styles.container}>
+        <label className={styles.label}>Enter your username</label>
+        <input
+          type="text"
+          value={user}
+          onChange={handleChangeUser}
+          className={styles.input}
+        />
 
-        } else {
-            setError("Usuario o contraseña incorrectas");
-        }
+        <label className={styles.label}>Enter your password</label>
+        <input
+          type="password"
+          value={password}
+          onChange={handleChangePass}
+          className={styles.input}
+        />
 
-        console.log("Se hizo click")
-        console.log(user);
-        console.log(password);
-    };
-
-
-    return (
-        <div>
-
-            <Head>
-                <title>EcoStyle</title>
-                <meta
-                    name="description"
-                    content="Inicia sesión en EcoStyle, tu e-commerce ecoamigable."
-                />
-            </Head>
-
-            <div className={styles.title}>Login</div>
-            <div className={styles.container}>
-                <label className={styles.label}>Enter your username</label>
-                <input
-                    type="text"
-                    value={user}
-                    onChange={handleChangeUser}
-                    className={styles.input}
-                />
-
-                <label className={styles.label}>Enter your password</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={handleChangePass}
-                    className={styles.input}
-                />
-
-                <button onClick={handleClick} className={styles.button}>
-                    Sign In
-                </button>
-                {error && <p className={styles.error}>{error}</p>}
-
-            </div>
-        </div>
-
-    )
+        <button onClick={handleClick} className={styles.button}>
+          Sign In
+        </button>
+        {error && <p className={styles.error}>{error}</p>}
+      </div>
+    </div>
+  );
 };
 
 export default Login;

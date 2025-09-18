@@ -1,4 +1,6 @@
-export const usuario = [
+import { User } from "@/dto/user"
+
+export const usuario : User[] = [
     {
         name: "Vanesa",
         password: "123456"
