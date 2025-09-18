@@ -26,17 +26,17 @@
   margin: 3em auto;
   padding: 3rem;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
-  background-color: #fff;
+  background-color: #FAFAFA;
 }
 
 .title {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 4rem;
   font-size: 2rem;
-  color: #ffffff;
-  font-weight: 1000;
+  color: #2E7D32;
+  font-weight: 800;
 }
 
 .subtitle {
@@ -49,30 +49,33 @@
   display: block;
   margin-bottom: 6px;
   font-weight: 600;
-  color: #444;
+  color: #616161;
 }
 
 .input {
+  background-color: #FAFAFA;
   width: 90%;
   padding: 10px 12px;
   margin-bottom: 15px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  border-radius: 2px;
+  border: none;
+  border-bottom: 1px solid #4CAF50;
   font-size: 1rem;
   outline: none;
   transition: border-color 0.3s;
 }
 
 .input:focus {
-  border-color: #2a37cd;
+  border-color: #4CAF50;
 }
 
 .button {
+  margin-top: 1.4rem;
   width: 100%;
   padding: 12px;
   border: none;
   border-radius: 5px;
-  background-color: #f05926;
+  background-color: #4CAF50;
   color: #fff;
   font-size: 1rem;
   font-weight: 600;
@@ -81,7 +84,7 @@
 }
 
 .button:hover {
-  background-color: #df402b;
+  background-color: #81C784;
 }
 
 .error {
