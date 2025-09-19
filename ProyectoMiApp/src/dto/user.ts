@@ -1,5 +1,12 @@
 
-export interface User {
+// export interface User {
+//     name: string,
+//     password: string
+// };
+
+
+export interface Usuario {
+    id?:number,
     name: string,
-    password: string
+    edad: number,
 };

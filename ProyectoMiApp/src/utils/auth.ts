@@ -1,4 +1,4 @@
-import { usuario } from "./usuarios";
+import { usuario } from "./serviciosUsuarios";
 import { User } from "@/dto/user";
 
 export function authenticate(name: string, password: string): User | null {

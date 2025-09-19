@@ -3,7 +3,7 @@
 //Cada método **imprima en consola** un mensaje simulando una llamada HTTP (`GET`, `POST`, `PATCH`, `DELETE`)
 
 import { User } from "@/dto/user";
-import { usuario } from "./usuarios";
+import { usuario } from "./serviciosUsuarios";
 
 export class UserStore {
     private users : User[];
