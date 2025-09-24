@@ -1,0 +1,23 @@
+.card{
+border-radius: 16px ;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 16px;
+gap: 16px;
+width: 400px;
+height: 120px;  
+}
+
+
+
+.Cardgreen{
+    background-color: #B9FF66;
+}
+.Cardblack{
+    background-color: #000000;
+}
+.Cardwhite{
+    background-color: #F3F3F3;
+}

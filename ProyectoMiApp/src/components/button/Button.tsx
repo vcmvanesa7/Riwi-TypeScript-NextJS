@@ -14,8 +14,8 @@ export const MyButton = ({text,icon}:MIButtonProps)=>{
 
     return (
         <button onClick={handleClick} className={styles.button} >
-           <div> {text}</div>
-           <div> {icon}</div>
+           <div> {text} </div>
+           <div> {icon} </div>
         </button>
         
     )

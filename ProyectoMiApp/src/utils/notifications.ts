@@ -1,10 +1,6 @@
 import { toast } from "react-toastify";
 
-export const notification = (
-  text: string,
-  type: "error" | "success" | "warning",
-  time: number = 5000
-) => {
+export const notification = (text: string,type: "error" | "success" | "warning",time: number = 5000) => {
   if (type === "error") {
     toast.error(text, {
       position: "top-right",
