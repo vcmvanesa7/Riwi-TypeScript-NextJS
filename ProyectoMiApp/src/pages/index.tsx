@@ -51,6 +51,7 @@ export default function Home() {
  
   return (
     <div>
+      <MyCard texto1={'Search engine optimization'} texto2={'learn more'} image={'./'} icon={''} color={'Cardwhite'} />
       <MyCard texto1={'Search engine optimization'} texto2={'learn more'} image={''} icon={''} color={'Cardwhite'} />
     </div>
   );
