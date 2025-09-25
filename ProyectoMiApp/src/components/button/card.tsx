@@ -7,7 +7,7 @@ interface CardProps {
   texto2: string;
   image: string;
   icon: string;
-  color: "Cardgreen" | "Cardblack" | "Cardwhite";
+  color: "green" | "black" | "white";
 }
 
 export const MyCard = ({ texto1, texto2, image, icon, color }: CardProps) => {

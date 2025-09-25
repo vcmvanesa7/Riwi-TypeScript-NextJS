@@ -1,6 +1,7 @@
 @import "tailwindcss" base;
 @import "tailwindcss" components;
 @import "tailwindcss" utilities;
+@import "./components/card.module.css";
 
 
 :root {
@@ -21,7 +22,6 @@
 
 body {
   height: 100vh;
-  /* altura completa de la ventana */
   margin: 0;
   display: flex;
   justify-content: center;
