@@ -1,14 +1,22 @@
+.cardContainer{
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
 .card{
 display: flex;
 justify-content: space-between;
 align-items: center;
-border-radius: 16px;
+border: 1px solid #756f6f;
+border-radius: 20px;
+box-shadow: 0 4px 1px rgb(0, 0, 0);
 padding: 1.5rem;
 gap: 16px;
 width: 280px;
-height: 160px;  
+height: 160px; 
+font-family:'Closer-Font';
 }
-
 
 
 .card--green{
@@ -16,6 +24,7 @@ height: 160px;
 }
 .card--black{
     background-color: #000000;
+    color: #F3F3F3;
 }
 .card--white{
     background-color: #F3F3F3;
@@ -35,8 +44,10 @@ height: 160px;
   margin: 0;
 }
 
-.cardleftSide--link {
+.card__leftSide--link {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;

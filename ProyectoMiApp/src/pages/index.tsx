@@ -1,7 +1,10 @@
 import { notification } from "@/utils/notifications";
 import { ToastContainer } from "react-toastify";
 import styles from "@/pages/home.module.css";
+import stylesCard from "@/styles/components/card.module.css";
 import { MyButton } from "@/components/button/Button";
+import { MyCard } from '@/components/button/card';
+import React from 'react';
 // import { useState } from "react";
 
 export default function Home() {
@@ -44,26 +47,17 @@ export default function Home() {
         Botón de Warning
       </button>
       <ToastContainer />
+
+      <div className={stylesCard.cardContainer}>
+        <MyCard texto1={'Search engine optimization'} texto2={'learn more'} image={''} icon={''} color={'green'} />
+        <MyCard texto1={'Search engine optimization'} texto2={'learn more'} image={''} icon={''} color={'white'} />
+        <MyCard texto1={'Search engine optimization'} texto2={'learn more'} image={''} icon={''} color={'black'} />
+      </div>
+      
     </div>
   );
 }
 
 
 
-// //CARDS
 
-// import { MyCard } from '../components/button/card';
-// import React from 'react';
-
-
-// export default function Home() {
-
- 
-//   return (
-//     <div>
-//       <MyCard texto1={'Search engine optimization'} texto2={'learn more'} image={''} icon={''} color={'green'} />
-//       <MyCard texto1={'Search engine optimization'} texto2={'learn more'} image={''} icon={''} color={'white'} />
-//       <MyCard texto1={'Search engine optimization'} texto2={'learn more'} image={''} icon={''} color={'black'} />
-//     </div>
-//   );
-// }

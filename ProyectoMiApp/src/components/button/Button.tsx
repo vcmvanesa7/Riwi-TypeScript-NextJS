@@ -9,7 +9,7 @@ interface MiButtonProps{
     click?: ()=> void,
 }
 
-export const MyButton = ({text,icon, disabled=false, loading=true, click}:MiButtonProps)=>{
+export const MyButton = ({text,icon, disabled=false, loading=false, click}:MiButtonProps)=>{
 
    
     return (
