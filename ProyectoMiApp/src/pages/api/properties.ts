@@ -10,76 +10,92 @@ interface Property {
   img?: string;
 }
 
-type Data = {
-    properties: string,
-    ok: boolean,
-}
+type ApiResponse =
+  | { ok: true; data: Property[] }
+  | { ok: true; message: string; updatedId?: string }
+  | { ok: false; data: [] };
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
-
-){
+  res: NextApiResponse<ApiResponse>
+) {
   try {
-    //Connect to db
+    // 1. Conexión a la DB
+    await dbConnection();
 
-    if (req.method === "GET") {
-      dbConnection()
-      const data = await Properties.find()
-      console.log(data)
+    // 2. Control de métodos
+    switch (req.method) {
+      case "GET": {
+        const { id } = req.query;
+        if (id) {
+          const property = await Properties.findById(id);
+          if (!property) {
+            return res.status(404).json({ ok: false, data: [] });
+          }
+          return res.status(200).json({ ok: true, data: [property] });
+        } else {
+          const data = await Properties.find();
+          return res.status(200).json({ ok: true, data });
+        }
+      }
 
-      res.status(200).json({
-        ok: true,
-        data: data as Property[]
-      });
-    } 
-}catch(error){
-    res.status(500).json({ name: error });
-        
+      //  POST
+      case "POST": {
+        const { name, value, img } = req.body;
+        const newProperty = new Properties({ name, value, img });
+        await newProperty.save();
+        return res.status(201).json({ ok: true, message: "property created" });
+      }
+
+      case "PUT": {
+        const { id, name, value, img } = req.body;
+
+        // Validar que se haya enviado el id
+        if (!id) {
+          return res.status(400).json({
+            ok: false,
+            data: [],
+          });
+        }
+
+        // Intentar actualizar la propiedad
+        const updated = await Properties.findByIdAndUpdate(
+          id,
+          { name, value, img },
+          { new: true } // ← Esto hace que devuelva el documento actualizado
+        );
+
+        // Si no encontró nada para actualizar
+        if (!updated) {
+          return res.status(404).json({
+            ok: false,
+            data: [],
+          });
+        }
+
+        // Si actualizó correctamente
+        return res.status(200).json({
+          ok: true,
+          message: "property updated",
+          updatedId: id,
+        });
+      }
+
+      // DELETE
+      case "DELETE": {
+        const { id } = req.body;
+        await Properties.findByIdAndDelete(id);
+        return res
+          .status(200)
+          .json({ ok: true, message: "property deleted", updatedId: id });
+      }
+
+      // Método no soportado
+      default:
+        return res.status(405).json({ ok: false, data: [] }); // Method Not Allowed
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ ok: false, data: [] });
+  }
 }
-}
-    
-    
-        // } else if (req.method === "POST") {
-        //   const { name, email, age } = req.body;
-        //   if (!name || !email) {
-        //     return res.status(400).json({ error: "Nombre y email son requeridos" });
-        //   }
-        //   const newUser = new User({ name, email, age });
-        //   await newUser.save();
-        //   return res.status(201).json(newUser);
-        // } 
-        
-        
-        // else if (req.method === "PUT") {
-        //   const { id, ...updates } = req.body;
-    
-        //   if (!id) {
-        //     return res
-        //       .status(400)
-        //       .json({ error: "Id es requerido para actualizar" });
-        //   }
-        //   const updatedUser = await User.findByIdAndUpdate(id, updates, {
-        //     new: true,
-        //   });
-        //   if (!updatedUser) {
-        //     return res.status(404).json({ error: "Usuario no encontrado" });
-        //   }
-        //   return res.status(200).json(updatedUser);
-        // } 
-        
-        
-        
-        // else if (req.method === "DELETE") {
-        //   const { id } = req.body;
-    
-        //   if (!id) {
-        //     return res.status(400).json({ error: "Id es requerido para eliminar" });
-        //   }
-        //   const deletedUser = await User.findByIdAndDelete(id);
-    
-        //   if (!deletedUser) {
-        //     return res.status(404).json({ error: "Usuario no encontrado" });
-        //   }
-        //   return res.status(200).json({ message: "Usuario eliminado correctamente" });
-        // }

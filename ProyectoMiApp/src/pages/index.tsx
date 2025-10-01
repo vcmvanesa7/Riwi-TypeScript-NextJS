@@ -6,6 +6,7 @@ import { MyButton } from "@/components/button/Button";
 import { MyCard } from '@/components/button/card';
 import React from 'react';
 // import { useState } from "react";
+import { getProperties } from "@/services/properties";
 
 export default function Home() {
 // const [loader, setLoader] = useState(false);
@@ -17,6 +18,7 @@ export default function Home() {
   //   }, 3000);
   // };
 
+  // cost [properties, setProperties] = useState([])
 
   const handleClickError = () => {
     notification("Error al cargar", "error", 2000);
@@ -30,6 +32,13 @@ export default function Home() {
     notification("Error al cargar", "warning", 1000);
   };
 
+
+  const handleClick  = async ()=> {
+    const response = await getProperties();
+    console.log(response.data);
+
+    // setProperties(response.data);
+  }
  
   return (
     <div>
@@ -44,7 +53,7 @@ export default function Home() {
       <MyButton text={"Cancelar"} icon = {"X"} />
       
       <button onClick={handleClickWarning} className={styles.button}>
-        Botón de Warning
+        Botón de Warning  
       </button>
       <ToastContainer />
 
@@ -53,6 +62,10 @@ export default function Home() {
         <MyCard texto1={'Search engine optimization'} texto2={'learn more'} image={''} icon={''} color={'white'} />
         <MyCard texto1={'Search engine optimization'} texto2={'learn more'} image={''} icon={''} color={'black'} />
       </div>
+
+      <button onClick={handleClick} className={styles.button}>
+        Botón endpoint
+      </button>
       
     </div>
   );
