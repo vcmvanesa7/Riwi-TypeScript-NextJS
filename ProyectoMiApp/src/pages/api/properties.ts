@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import dbConnection from "@/lib/dbconection";
 import Properties from "@/database/models/properties";
+//Data lo puedo cambiar por mi respuesta, cambiarla para ver la diferencia
 
 interface Property {
   _id: string;
