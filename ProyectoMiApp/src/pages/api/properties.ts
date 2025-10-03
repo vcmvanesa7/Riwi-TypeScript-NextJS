@@ -2,17 +2,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import dbConnection from "@/lib/dbconection";
 import Properties from "@/database/models/properties";
-//Data lo puedo cambiar por mi respuesta, cambiarla para ver la diferencia
-
-interface Property {
-  _id: string;
-  name: string;
-  value: number;
-  img?: string;
-}
+import { propertyProps } from "@/dto/properties";
 
 type ApiResponse =
-  | { ok: true; data: Property[] }
+  | { ok: true; data: propertyProps[] }
   | { ok: true; message: string; updatedId?: string }
   | { ok: false; data: [] };
 
@@ -27,27 +20,40 @@ export default async function handler(
     // 2. Control de métodos
     switch (req.method) {
       case "GET": {
-        const { id } = req.query;
+        const { id } = req.query as { id?: string };
         if (id) {
           const property = await Properties.findById(id);
           if (!property) {
             return res.status(404).json({ ok: false, data: [] });
           }
           return res.status(200).json({ ok: true, data: [property] });
-        } else {
-          const data = await Properties.find();
-          return res.status(200).json({ ok: true, data });
         }
+
+        const propertyList = await Properties.find();
+        return res.status(200).json({ ok: true, data: propertyList });
       }
 
-      //  POST
+      //  POST CASE
       case "POST": {
         const { name, value, img } = req.body;
+
+        //Simple Validations
+        if (
+          typeof name !== "string" ||
+          name.trim() === "" ||
+          typeof value !== "number" ||
+          value <= 0 ||
+          (img && typeof img !== "string")
+        ) {
+          return res.status(400).json({ ok: false, data: [] });
+        }
+
         const newProperty = new Properties({ name, value, img });
         await newProperty.save();
         return res.status(201).json({ ok: true, message: "property created" });
       }
 
+      // PUT CASE
       case "PUT": {
         const { id, name, value, img } = req.body;
 
@@ -59,11 +65,20 @@ export default async function handler(
           });
         }
 
+        //Validaciones básicas
+        if (
+          (name && (typeof name !== "string" || name.trim() === "")) ||
+          (value && (typeof value !== "number" || value <= 0)) ||
+          (img && typeof img !== "string")
+        ) {
+          return res.status(400).json({ ok: false, data: [] });
+        }
+
         // Intentar actualizar la propiedad
         const updated = await Properties.findByIdAndUpdate(
           id,
           { name, value, img },
-          { new: true } // ← Esto hace que devuelva el documento actualizado
+          { new: true } // Esto hace que devuelva el documento actualizado
         );
 
         // Si no encontró nada para actualizar
@@ -82,7 +97,7 @@ export default async function handler(
         });
       }
 
-      // DELETE
+      // DELETE CASE
       case "DELETE": {
         const { id } = req.body;
         await Properties.findByIdAndDelete(id);

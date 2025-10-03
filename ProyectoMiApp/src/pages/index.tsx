@@ -7,13 +7,8 @@ import { MyCard } from '@/components/button/card';
 import React, { useEffect } from 'react';
 import { useState } from "react";
 import { getProperties } from "@/services/properties";
+import { propertyProps } from "@/dto/properties";
 
-interface propertyProps {
-  _id:string
-  name: string,
-  value: number,
-  img: string
-}
 
 
 interface dataProperties {
@@ -127,7 +122,7 @@ console.log(dataProperties);
             <div key={property._id}>
               <div>{property.name}</div>
               <div>{property.value}</div>
-              <imgage src={property.img} alt={property.name} />
+              {/* <imgage src={property.img} alt={property.name} /> */}
             </div>
           ))}
         </div>
