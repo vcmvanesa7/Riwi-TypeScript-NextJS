@@ -1,20 +1,32 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import mongoose, { Mongoose } from "mongoose";
 
-dotenv.config()
+declare global {
+  // Esto le dice a TypeScript que puede haber una propiedad 'mongoose' en globalThis
+  var mongoose: {
+    conn: Mongoose | null;
+    promise: Promise<Mongoose> | null;
+  };
+}
 
-const dbConnection = async () => {
-  try {
+const MONGODB_URI = process.env.MONGODB_URI!;
 
-    const mongodbAtlas = process.env.MONGODB_URI || ""; // Obtener URI de conexión de .env
-   
-    await mongoose.connect(mongodbAtlas);
-    console.log("DB Online");
-    
-  } catch (error) {
-    console.error(error);
-    throw new Error("Error en la base de datos");
+if (!MONGODB_URI) {
+  throw new Error("Por favor define MONGODB_URI en tus variables de entorno");
+}
+
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+export default async function dbConnection() {
+  if (cached.conn) return cached.conn;
+
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(MONGODB_URI).then((m) => m);
   }
-};
 
-export default dbConnection;
+  cached.conn = await cached.promise;
+  return cached.conn;
+}

@@ -29,7 +29,7 @@ export default async function handler(
           return res.status(200).json({ ok: true, data: [property] });
         }
 
-        const propertyList = await Properties.find();
+        const propertyList = await Properties.find().sort({ _id: 1 });
         return res.status(200).json({ ok: true, data: propertyList });
       }
 
@@ -55,10 +55,10 @@ export default async function handler(
 
       // PUT CASE
       case "PUT": {
-        const { id, name, value, img } = req.body;
+        const { _id, name, value, img } = req.body;
 
         // Validar que se haya enviado el id
-        if (!id) {
+        if (!_id) {
           return res.status(400).json({
             ok: false,
             data: [],
@@ -76,7 +76,7 @@ export default async function handler(
 
         // Intentar actualizar la propiedad
         const updated = await Properties.findByIdAndUpdate(
-          id,
+          _id,
           { name, value, img },
           { new: true } // Esto hace que devuelva el documento actualizado
         );
@@ -93,17 +93,17 @@ export default async function handler(
         return res.status(200).json({
           ok: true,
           message: "property updated",
-          updatedId: id,
+          updatedId: _id,
         });
       }
 
       // DELETE CASE
       case "DELETE": {
-        const { id } = req.body;
-        await Properties.findByIdAndDelete(id);
+        const { _id } = req.body;
+        await Properties.findByIdAndDelete(_id);
         return res
           .status(200)
-          .json({ ok: true, message: "property deleted", updatedId: id });
+          .json({ ok: true, message: "property deleted", updatedId: _id });
       }
 
       // Método no soportado

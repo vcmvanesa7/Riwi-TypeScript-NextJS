@@ -2,7 +2,7 @@
 import { propertyProps } from "@/dto/properties";
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/properties";
+const API_URL = "/api/properties";
 
 //GET
 export const getProperties = async () => {
@@ -20,19 +20,22 @@ export const createProperty = async (
   });
   return response.data;
 };
-//PUT
+
+// PUT (actualizar)
 export const updateProperty = async (propertyData: propertyProps) => {
-  const response = await axios.put(API_URL, propertyData, {
+  const response = await axios.put(`/api/properties`, propertyData, {
     headers: {
       "Content-Type": "application/json",
     },
   });
   return response.data;
 };
-//DELETE
-export const deleteProperty = async (id: string) => {
-  const response = await axios.delete(API_URL, {
-    data: { id },
+
+
+// DELETE (eliminar)
+export const deleteProperty = async (_id: string) => {
+  const response = await axios.delete(`/api/properties`, {
+    data: { _id },
     headers: {
       "Content-Type": "application/json",
     },

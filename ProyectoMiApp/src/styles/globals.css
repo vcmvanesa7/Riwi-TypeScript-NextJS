@@ -28,14 +28,10 @@
 }
 
 body {
-  height: 100vh;
   margin: 0;
-  display: flex;
-  justify-content: center;
-  /* horizontal */
-  align-items: center;
-  /* vertical */
+  padding: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Closer-FontArial, Helvetica, sans-serif;
+  font-family: Closer-Font, Arial, Helvetica, sans-serif;
+  min-height: 100vh;
 }

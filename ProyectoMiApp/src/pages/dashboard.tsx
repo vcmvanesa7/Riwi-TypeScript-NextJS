@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import React from "react";
 import { getProperties } from "@/services/properties";
+import styles from "@/styles/Dashboard.module.css";
 
 
 const Dashboard = () => {
@@ -17,7 +18,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     async function loadData() {
-      try{
+      try {
         const response = await getProperties();
 
         if (response.ok) {
@@ -25,7 +26,7 @@ const Dashboard = () => {
         } else {
           console.error("Error loading properties")
         }
-      }catch (error){
+      } catch (error) {
         console.error("Error conecting API")
       }
     }
@@ -33,26 +34,31 @@ const Dashboard = () => {
   }, []);
 
 
-
   return (
-    <section>
-      <div>DASHBOARD DE PROPIEDADES</div>
+    <section className={styles.dashboardContainer}>
+      <h2 className={styles.title}>Dashboard de Propiedades </h2>
 
       {properties.length === 0 ? (
-        <p>There are no properties yet.</p>
+        <p>No hay propiedades aún.</p>
       ) : (
-        properties.map((prop) => (
-          <div key={prop._id}>
-            <h3>{prop.name}</h3>
-            <p>{`Valor: ${prop.value}`}</p>
-            {prop.img && <img src={prop.img} alt={prop.name} width={200}/>}
-          </div>
-        ))
+        <div className={styles.cardsGrid}>
+          {properties.map((prop) => (
+            <div key={prop._id} className={styles.card}>
+              {prop.img && <img src={prop.img} alt={prop.name} />}
+              <div className={styles.cardContent}>
+                <h3>{prop.name}</h3>
+                <p>Valor: ${prop.value}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
-      <button onClick={handleClickBack}>Regresar</button>
+
+      <button className={styles.backButton} onClick={handleClickBack}>
+        ← Regresar
+      </button>
     </section>
   );
 };
 
 export default Dashboard;
-
