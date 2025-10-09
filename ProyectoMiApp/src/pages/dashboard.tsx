@@ -5,7 +5,6 @@
 // import { getProperties } from "@/services/properties";
 // import styles from "@/styles/Dashboard.module.css";
 
-
 // const Dashboard = () => {
 
 //   const router = useRouter();
@@ -13,8 +12,6 @@
 //   const handleClickBack = () => {
 //     router.back();
 //   };
-
-
 
 //   useEffect(() => {
 //     async function loadData() {
@@ -32,7 +29,6 @@
 //     }
 //     loadData();
 //   }, []);
-
 
 //   return (
 //     <section className={styles.dashboardContainer}>
@@ -63,22 +59,22 @@
 
 // export default Dashboard;
 
-
-import { MyContext } from "@/contex/Contex";
+import { MyContext } from "@/context/Context";
 import { Button } from "@heroui/react";
 import { useRouter } from "next/router";
 import { useContext } from "react";
+import { Switch } from "@heroui/react";
 
 const Dashboard = () => {
   const router = useRouter();
 
   const { userLogged, setIsActive, isActive } = useContext(MyContext);
 
-  console.log(userLogged)
+  console.log(userLogged);
 
   const handleClick = () => {
-    console.log(userLogged)
-    setIsActive(!isActive)
+    console.log(userLogged);
+    setIsActive(!isActive);
     router.back();
   };
 
@@ -89,6 +85,14 @@ const Dashboard = () => {
       <Button onPress={handleClick} className="mt-7" color="danger">
         regresar
       </Button>
+
+      <Switch
+        onValueChange={setIsActive}
+        isSelected={isActive}
+        aria-label="Test"
+      />
+
+      {isActive ? <div>Esta activo</div> : <div>Esta desactivado</div>}
     </>
   );
 };

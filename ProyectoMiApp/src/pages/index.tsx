@@ -9,13 +9,10 @@
 // import { getProperties } from "@/services/properties";
 // import { propertyProps } from "@/dto/properties";
 
-
-
 // interface dataProperties {
 //   ok :string,
 //   miInfo: propertyProps[]
 // }
-
 
 // export default function Home() {
 // // const [loader, setLoader] = useState(false);
@@ -27,21 +24,19 @@
 //   //   }, 3000);
 //   // };
 
-
 //   const [dataProperties, setDataProperties] = useState({} as dataProperties);
-  
+
 //   const handleClickError = () => {
 //     notification("Error al cargar", "error", 2000);
 //   };
-  
+
 //   const handleClickSuccess = () => {
 //     notification("Error al cargar", "success");
 //   };
-  
+
 //   const handleClickWarning = () => {
 //     notification("Error al cargar", "warning", 1000);
 //   };
-  
 
 //   useEffect(() => {
 //     const fetchData = async () => {
@@ -50,8 +45,6 @@
 //     }
 //     fetchData();
 //   }, []);
-
-
 
 //   const handleClick  = async ()=> {
 //     const response = await getProperties();
@@ -70,7 +63,6 @@
 //   }, []);
 // console.log(dataProperties);
 
- 
 //   return (
 //     <div>
 //       <h1>Bienvenido a mi App</h1>
@@ -131,15 +123,13 @@
 //     </div>
 //   );
 // }
-
-
-
-
-import { Button, Input } from "@heroui/react";
 import { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import { notification } from "@/helpers/utils";
-import { MyContext } from "@/contex/Contex";
+import { MyContext } from "@/context/Context";
+import { Input as HeroInput } from "@heroui/input";
+import { Button } from "@heroui/button";
+import { Input, Switch } from "@heroui/react";
 
 const userLogueado = {
   name: "vanesa",
@@ -153,7 +143,6 @@ export default function Home() {
   const [pass, setPass] = useState("");
 
   const { setUserLogged, setIsActive, isActive } = useContext(MyContext);
-
   const router = useRouter();
 
   const handleClick = async () => {
@@ -161,37 +150,53 @@ export default function Home() {
       setUserLogged(userLogueado);
       notification("login exitoso", "success");
       router.push("/dashboard");
+    } else {
+      notification("Credenciales inválidas", "error");
     }
   };
 
   return (
-    <div className="flex items-center">
-      <div className="max-w-3/6">
-        <div>Login</div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-6">
+        <h1 className="text-2xl font-bold text-center text-gray-800">Login</h1>
 
         <Input
-          label="User"
-          placeholder="Enter your user"
+          label="Usuario"
+          placeholder="Ingrese su usuario"
           type="text"
-          onChange={(e) => {
-            setUser(e.target.value);
-          }}
+          onChange={(e) => setUser(e.target.value)}
         />
 
-        <Input
-          label="Password"
-          placeholder="Enter your password"
+        <HeroInput
+          label="Contraseña"
+          placeholder="Ingrese su contraseña"
           type="password"
-          onChange={(e) => {
-            setPass(e.target.value);
-          }}
+          onChange={(e) => setPass(e.target.value)}
         />
 
-        <Button onPress={handleClick} className="mt-7" color="primary">
+        <Button
+          onPress={handleClick}
+          className="w-full"
+          color="primary"
+        >
           Login
         </Button>
 
-        {isActive ? <div>Esta activo</div> : <div>Esta desactivado</div>}
+        <div className="flex items-center justify-between">
+          <span className="text-gray-700 font-medium">Activ?</span>
+          <Switch
+            onValueChange={setIsActive}
+            isSelected={isActive}
+          />
+        </div>
+
+        <div className="text-center text-sm text-gray-600">
+          {isActive ? (
+            <span className="text-green-600 font-medium">Está activo</span>
+          ) : (
+            <span className="text-red-500 font-medium">Está desactivado</span>
+          )}
+        </div>
       </div>
     </div>
   );
